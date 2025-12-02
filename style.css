@@ -1,0 +1,165 @@
+:root {
+            --primary: #6366f1;
+            --secondary: #10b981;
+            --dark: #0f172a;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        /* Hero section specific styles */
+        #home {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+        }
+        
+        #home * {
+            color: inherit;
+        }
+        
+        /* Outlined text stroke effect */
+        .stroke-text {
+            -webkit-text-stroke: 2px #d1d5db;
+            color: transparent !important;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideInLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 1s ease-in forwards;
+        }
+        
+        .animate-slide-left {
+            animation: slideInLeft 0.8s ease-out forwards;
+        }
+        
+        .animate-slide-right {
+            animation: slideInRight 0.8s ease-out forwards;
+        }
+        
+        /* Particle background */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* Skill bar animation */
+        .skill-bar {
+            transition: width 2s ease-in-out;
+        }
+        
+        /* Project card hover effect */
+        .project-card {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        /* Timeline */
+        .timeline-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 30px;
+            height: calc(100% - 30px);
+            width: 2px;
+            background: var(--primary);
+        }
+        
+        /* Contact form */
+        .form-input {
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .form-input:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
+        }
+        
+        /* Social icons */
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
+            color: var(--primary);
+        }
+        
+        /* Navbar */
+        .navbar {
+            backdrop-filter: blur(10px);
+            background-color: rgba(15, 23, 42, 0.8);
+        }
+        
+        /* Mobile menu */
+        .mobile-menu {
+            transition: all 0.3s ease;
+            max-height: 0;
+            overflow: hidden;
+        }
+        
+        .mobile-menu.open {
+            max-height: 500px;
+        }

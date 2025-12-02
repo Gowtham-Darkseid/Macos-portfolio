@@ -1,0 +1,29 @@
+{
+  "short_name": "Gowtham Portfolio",
+  "name": "Gowtham Seenivasan - Web Developer & Cybersecurity Expert",
+  "description": "Portfolio showcasing web development projects, cybersecurity skills, and professional experience",
+  "icons": [
+    {
+      "src": "assets/bag.png",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/bag.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "assets/bag.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "categories": ["portfolio", "technology", "development"],
+  "lang": "en-US"
+}

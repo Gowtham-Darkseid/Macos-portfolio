@@ -1,0 +1,15 @@
+# robots.txt for www.gowthamseenivasan.me
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Crawl-delay for polite crawling
+Crawl-delay: 0
+
+# Sitemap location
+Sitemap: https://www.gowthamseenivasan.me/sitemap.xml
+
+# Block admin or sensitive areas (if any in future)
+# Disallow: /admin/
+# Disallow: /api/
