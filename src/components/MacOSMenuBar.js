@@ -173,7 +173,7 @@ const MacOSMenuBar = ({
   const audioRef = useRef(null);
 
   const appleLogoRef = useRef(null);
-  const menuRefs = useRef({});
+  const menuRefs = useRef({});  
 
   // Detect if we're in hero section
   useEffect(() => {
@@ -371,19 +371,19 @@ const MacOSMenuBar = ({
         <div 
           className="backdrop-blur-xl cursor-pointer"
           style={{
-            height: '48px',
+            height: '56px',
             background: 'linear-gradient(180deg, rgba(40, 40, 40, 0.6) 0%, rgba(40, 40, 40, 0.3) 70%, rgba(40, 40, 40, 0) 100%)',
             borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
             boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
           }}
           onClick={() => setControlCenterOpen(!controlCenterOpen)}
         >
-          <div className="flex justify-between items-center h-full px-4">
-            <span className="text-white text-sm font-semibold">{appName}</span>
+          <div className="flex justify-between items-center h-full px-5">
+            <span className="text-white text-base font-semibold">{appName}</span>
             <div className="flex items-center space-x-3">
               <svg 
-                width="20" 
-                height="20" 
+                width="24" 
+                height="24" 
                 viewBox="0 0 24 24" 
                 fill="none" 
                 stroke="white" 

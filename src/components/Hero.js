@@ -60,7 +60,7 @@ const Hero = () => {
 
       {/* Unique Scroll Down Indicator */}
       <div 
-        className={`absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center cursor-pointer group transition-all duration-1000 ${
+        className={`absolute bottom-8 md:bottom-8 bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center cursor-pointer group transition-all duration-1000 ${
           mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         }`}
         style={{ transitionDelay: "1600ms" }}
