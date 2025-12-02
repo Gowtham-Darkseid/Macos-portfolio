@@ -12,11 +12,11 @@ export const LogoLoop = ({ logos, speed = 30 }) => {
               className="flex items-center justify-center min-w-[80px] md:min-w-[120px] h-20 grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
             >
               {logo.icon ? (
-                <i className={`${logo.icon} text-4xl md:text-5xl text-gray-700 hover:text-black transition-colors duration-300`}></i>
+                <i className={`${logo.icon} text-4xl md:text-5xl text-gray-300 hover:text-white transition-colors duration-300`}></i>
               ) : logo.image ? (
                 <img src={logo.image} alt={logo.name} className="h-10 md:h-12 w-auto object-contain" />
               ) : (
-                <span className="text-xl md:text-2xl font-bold text-gray-700">{logo.name}</span>
+                <span className="text-xl md:text-2xl font-bold text-gray-300 hover:text-white">{logo.name}</span>
               )}
             </div>
           ))}
@@ -29,11 +29,11 @@ export const LogoLoop = ({ logos, speed = 30 }) => {
               className="flex items-center justify-center min-w-[80px] md:min-w-[120px] h-20 grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
             >
               {logo.icon ? (
-                <i className={`${logo.icon} text-4xl md:text-5xl text-gray-700 hover:text-black transition-colors duration-300`}></i>
+                <i className={`${logo.icon} text-4xl md:text-5xl text-gray-300 hover:text-white transition-colors duration-300`}></i>
               ) : logo.image ? (
                 <img src={logo.image} alt={logo.name} className="h-10 md:h-12 w-auto object-contain" />
               ) : (
-                <span className="text-xl md:text-2xl font-bold text-gray-700">{logo.name}</span>
+                <span className="text-xl md:text-2xl font-bold text-gray-300 hover:text-white">{logo.name}</span>
               )}
             </div>
           ))}

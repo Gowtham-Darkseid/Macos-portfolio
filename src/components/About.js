@@ -50,27 +50,29 @@ const About = () => {
     <section 
       id="about" 
       ref={sectionRef}
-      className="py-32 bg-white relative overflow-hidden min-h-screen"
+      className="py-32 bg-black relative overflow-hidden min-h-screen"
       onMouseMove={handleMouseMove}
     >
       {/* Animated Background Elements with Advanced Parallax */}
       <div className="absolute inset-0 pointer-events-none">
         <div 
           ref={bg1Ref}
-          className="absolute w-64 h-64 bg-gray-100 rounded-full opacity-20"
+          className="absolute w-64 h-64 rounded-full opacity-30 blur-3xl"
           style={{
             left: `${mousePosition.x * 0.1}px`,
             top: `${mousePosition.y * 0.1}px`,
+            background: 'radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, rgba(139, 92, 246, 0.2) 50%, transparent 100%)',
             ...getBg1Parallax(1, true),
             transform: `translate(-50%, -50%) scale(${isVisible ? 1 : 0}) ${getBg1Parallax(1, true).transform}`,
           }}
         />
         <div 
           ref={bg2Ref}
-          className="absolute w-32 h-32 bg-black opacity-5 rounded-full"
+          className="absolute w-32 h-32 rounded-full opacity-25 blur-2xl"
           style={{
             right: `${300 - mousePosition.x * 0.05}px`,
             bottom: `${200 - mousePosition.y * 0.05}px`,
+            background: 'radial-gradient(circle, rgba(147, 51, 234, 0.5) 0%, rgba(168, 85, 247, 0.3) 50%, transparent 100%)',
             ...getBg2Parallax(1, true),
             transform: `translate(50%, 50%) scale(${isVisible ? 1 : 0}) ${getBg2Parallax(1, true).transform}`,
           }}
@@ -80,12 +82,12 @@ const About = () => {
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Title with Animation and Advanced Parallax */}
         <div className="text-center mb-24" ref={titleRef} style={getTitleEntrance(0, 'top')}>
-          <h2 className={`text-6xl md:text-8xl lg:text-9xl font-black text-black mb-6 transition-all duration-1000 ${
+          <h2 className={`text-6xl md:text-8xl lg:text-9xl font-black text-white mb-6 transition-all duration-1000 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}>
             About
           </h2>
-          <div className={`w-32 h-2 bg-black mx-auto transition-all duration-1000 delay-300 ${
+          <div className={`w-32 h-2 bg-purple-600 mx-auto transition-all duration-1000 delay-300 ${
             isVisible ? 'scale-x-100' : 'scale-x-0'
           }`} />
         </div>
@@ -98,23 +100,23 @@ const About = () => {
             <div className="relative group" ref={imageRef} style={getImageEntrance(200, 'left')}>
               {/* Floating Image Container */}
               <div className="relative w-80 h-80 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] mx-auto">
-                <div className="absolute inset-0 bg-gradient-to-r from-gray-200 to-gray-300 rounded-2xl transform rotate-6 group-hover:rotate-12 transition-transform duration-500" />
-                <div className="absolute inset-0 bg-black rounded-2xl transform -rotate-3 group-hover:-rotate-6 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-900 to-purple-700 rounded-2xl transform rotate-6 group-hover:rotate-12 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-purple-600 rounded-2xl transform -rotate-3 group-hover:-rotate-6 transition-transform duration-500" />
                 <div className="relative w-full h-full bg-white rounded-2xl overflow-hidden transform group-hover:scale-105 transition-transform duration-500 shadow-2xl">
                   <img 
                     src="/assets/profile.jpeg" 
                     alt="Gowtham" 
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-purple-900/30 to-transparent" />
                 </div>
               </div>
 
               {/* Floating Elements */}
-              <div className="absolute -top-6 -right-6 w-16 h-16 bg-black rounded-full flex items-center justify-center text-white text-2xl animate-bounce">
+              <div className="absolute -top-6 -right-6 w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl animate-bounce shadow-lg shadow-purple-500/50" style={{ background: 'linear-gradient(135deg, #a855f7 0%, #7c3aed 100%)' }}>
                 👋
               </div>
-              <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center text-3xl animate-pulse">
+              <div className="absolute -bottom-6 -left-6 w-20 h-20 rounded-full flex items-center justify-center text-3xl animate-pulse shadow-lg shadow-purple-500/50" style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)' }}>
                 💻
               </div>
             </div>
@@ -126,12 +128,12 @@ const About = () => {
           }`} ref={contentRef} style={getContentEntrance(400, 'right')}>
             {/* Introduction */}
             <div className="mb-12">
-              <h3 className="text-4xl lg:text-5xl font-bold text-black mb-6">
-                Hello! I'm <span className="text-gray-600">Gowtham</span>
+              <h3 className="text-4xl lg:text-5xl font-bold text-white mb-6">
+                Hello! I'm <span className="text-purple-400">Gowtham</span>
               </h3>
-              <p className="text-xl lg:text-2xl text-gray-700 leading-relaxed mb-8">
-                Aspiring <span className="font-semibold text-black">Web Solutions Engineer</span> & 
-                <span className="font-semibold text-black"> Security Enthusiast</span> with strong programming skills in Java, Python, and 
+              <p className="text-xl lg:text-2xl text-gray-300 leading-relaxed mb-8">
+                Aspiring <span className="font-semibold text-purple-400">Web Solutions Engineer</span> & 
+                <span className="font-semibold text-purple-400"> Security Enthusiast</span> with strong programming skills in Java, Python, and 
                 React.js. Experienced in building scalable web applications, API integrations, and automation workflows. 
                 Passionate about delivering secure, user-focused solutions for real-world challenges.
               </p>
@@ -142,8 +144,8 @@ const About = () => {
               {personalInfo.map((info, index) => (
                 <div
                   key={index}
-                  className={`p-6 bg-gray-50 rounded-xl border-2 border-transparent hover:border-black transition-all duration-300 cursor-pointer transform hover:scale-105 ${
-                    activeCard === index ? 'border-black bg-black text-yellow-400' : ''
+                  className={`p-6 bg-purple-950/30 rounded-xl border-2 border-transparent hover:border-purple-600 transition-all duration-300 cursor-pointer transform hover:scale-105 ${
+                    activeCard === index ? 'border-purple-600 bg-purple-900 text-white' : ''
                   }`}
                   onMouseEnter={() => setActiveCard(index)}
                   onMouseLeave={() => setActiveCard(null)}
@@ -154,15 +156,15 @@ const About = () => {
                 >
                   <div className="flex items-center space-x-4">
                     <div className={`w-12 h-12 rounded-full flex items-center justify-center text-2xl ${
-                      activeCard === index ? 'bg-yellow-400 text-black' : 'bg-gray-200'
+                      activeCard === index ? 'bg-purple-400 text-black' : 'bg-purple-900'
                     }`}>
                       {info.icon}
                     </div>
                     <div>
-                      <p className={`text-lg font-medium ${activeCard === index ? 'text-yellow-400' : 'text-gray-600'}`}>
+                      <p className={`text-lg font-medium ${activeCard === index ? 'text-purple-200' : 'text-gray-400'}`}>
                         {info.label}
                       </p>
-                      <p className={`text-xl font-semibold ${activeCard === index ? 'text-yellow-400' : 'text-black'}`}>
+                      <p className={`text-xl font-semibold ${activeCard === index ? 'text-white' : 'text-white'}`}>
                         {info.value}
                       </p>
                     </div>
@@ -177,7 +179,7 @@ const About = () => {
             }`}>
               <a 
                 href="#contact" 
-                className="group px-10 py-4 bg-black text-white rounded-full text-lg font-medium transition-all duration-300 hover:bg-gray-800 transform hover:scale-105 flex items-center justify-center space-x-3"
+                className="group px-10 py-4 bg-purple-600 text-white rounded-full text-lg font-medium transition-all duration-300 hover:bg-purple-700 transform hover:scale-105 flex items-center justify-center space-x-3"
               >
                 <span>Let's Connect</span>
                 <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
@@ -186,7 +188,7 @@ const About = () => {
                 href="https://drive.google.com/uc?export=download&id=1fErE1u2hzZTreZjL-xzAH8RMMU7duMix" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-10 py-4 border-2 border-black text-black rounded-full text-lg font-medium transition-all duration-300 hover:bg-black hover:text-white transform hover:scale-105 flex items-center justify-center"
+                className="px-10 py-4 border-2 border-purple-600 text-white rounded-full text-lg font-medium transition-all duration-300 hover:bg-purple-600 hover:text-white transform hover:scale-105 flex items-center justify-center"
               >
                 Download CV
               </a>

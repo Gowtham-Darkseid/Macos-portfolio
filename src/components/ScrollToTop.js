@@ -73,7 +73,7 @@ const ScrollToTop = () => {
       {isVisible && (
         <div className="fixed bottom-8 right-8 z-50 flex flex-col items-end space-y-2">
           {/* Visitor Counter */}
-          <div className="bg-black/90 backdrop-blur-sm text-white px-3 py-2 rounded-lg shadow-lg border border-white/20 transition-all duration-300 hover:bg-white/10 group">
+          <div className="bg-purple-950/90 backdrop-blur-sm text-white px-3 py-2 rounded-lg shadow-lg border border-purple-600/20 transition-all duration-300 hover:bg-purple-900/80 group">
             <div className="flex items-center space-x-2 text-sm">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
               <span className="font-medium">
@@ -88,7 +88,7 @@ const ScrollToTop = () => {
             </div>
             
             {/* Tooltip */}
-            <div className="absolute bottom-full right-0 mb-2 px-2 py-1 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+            <div className="absolute bottom-full right-0 mb-2 px-2 py-1 bg-purple-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
               Total site visitors
             </div>
           </div>
@@ -96,7 +96,7 @@ const ScrollToTop = () => {
           {/* Scroll to Top Button */}
           <button
             onClick={scrollToTop}
-            className="bg-white text-black p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 hover:bg-gray-100 border-2 border-black/10"
+            className="bg-purple-600 text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 hover:bg-purple-700 border-2 border-purple-500/30"
             aria-label="Scroll to top"
           >
             <svg

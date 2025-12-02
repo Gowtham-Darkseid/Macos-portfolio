@@ -61,17 +61,17 @@ const Resume = () => {
   ];
 
   return (
-    <section id="resume" className="py-20 bg-white relative overflow-hidden" ref={sectionRef}>
+    <section id="resume" className="py-20 bg-black relative overflow-hidden" ref={sectionRef}>
       {/* Parallax Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div 
           ref={bgRef1}
-          className="absolute top-20 right-10 w-28 h-28 bg-gray-100 rounded-full opacity-40"
+          className="absolute top-20 right-10 w-28 h-28 bg-purple-900 rounded-full opacity-40"
           style={{ transform: bgTransform1 }}
         />
         <div 
           ref={bgRef2}
-          className="absolute bottom-24 left-8 w-20 h-20 bg-gray-200 rounded-full opacity-30"
+          className="absolute bottom-24 left-8 w-20 h-20 bg-purple-700 rounded-full opacity-30"
           style={{ transform: bgTransform2 }}
         />
       </div>
@@ -81,7 +81,7 @@ const Resume = () => {
           <h2 className={`text-3xl md:text-4xl font-bold text-center mb-16 transition-all duration-1000 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}>
-            <span className="text-black">My Resume</span>
+            <span className="text-white">My Resume</span>
           </h2>
         </div>
         
@@ -90,7 +90,7 @@ const Resume = () => {
             href="https://drive.google.com/uc?export=download&id=1fErE1u2hzZTreZjL-xzAH8RMMU7duMix" 
             target="_blank"
             rel="noopener noreferrer"
-            className={`inline-flex items-center px-6 py-3 bg-black hover:bg-gray-800 rounded-lg font-medium transition-all duration-500 transform hover:-translate-y-1 hover:scale-105 hover:shadow-lg text-white ${
+            className={`inline-flex items-center px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg font-medium transition-all duration-500 transform hover:-translate-y-1 hover:scale-105 hover:shadow-lg text-white ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
             }`}
             style={{ transitionDelay: '200ms' }}
@@ -101,10 +101,10 @@ const Resume = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div ref={experienceRef} style={{ transform: experienceTransform }}>
-            <h3 className={`text-2xl font-semibold mb-6 flex items-center text-black transition-all duration-1000 delay-300 ${
+            <h3 className={`text-2xl font-semibold mb-6 flex items-center text-white transition-all duration-1000 delay-300 ${
               isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
             }`}>
-              <i className="fas fa-briefcase mr-3 text-gray-700"></i> Experience
+              <i className="fas fa-briefcase mr-3 text-purple-400"></i> Experience
             </h3>
             
             <div className="space-y-8">
@@ -116,14 +116,14 @@ const Resume = () => {
                   }`}
                   style={{ transitionDelay: `${400 + index * 150}ms` }}
                 >
-                  <div className="absolute left-0 top-0 w-4 h-4 rounded-full bg-black animate-pulse"></div>
+                  <div className="absolute left-0 top-0 w-4 h-4 rounded-full bg-purple-600 animate-pulse"></div>
                   {index < experiences.length - 1 && (
-                    <div className="absolute left-2 top-4 w-0.5 h-full bg-gray-300"></div>
+                    <div className="absolute left-2 top-4 w-0.5 h-full bg-purple-900"></div>
                   )}
-                  <div className="bg-gray-100 p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl hover:bg-gray-50 transition-all duration-300">
-                    <h4 className="text-xl font-medium mb-1 text-black">{exp.title}</h4>
-                    <div className="text-gray-700 mb-2">{exp.company} • {exp.period}</div>
-                    <p className="text-gray-600">{exp.description}</p>
+                  <div className="bg-purple-950/30 p-6 rounded-lg shadow-lg border border-purple-900 hover:shadow-xl hover:bg-purple-900/30 transition-all duration-300">
+                    <h4 className="text-xl font-medium mb-1 text-white">{exp.title}</h4>
+                    <div className="text-purple-400 mb-2">{exp.company} • {exp.period}</div>
+                    <p className="text-gray-400">{exp.description}</p>
                   </div>
                 </div>
               ))}
@@ -131,10 +131,10 @@ const Resume = () => {
           </div>
           
           <div ref={educationRef} style={{ transform: educationTransform }}>
-            <h3 className={`text-2xl font-semibold mb-6 flex items-center text-black transition-all duration-1000 delay-500 ${
+            <h3 className={`text-2xl font-semibold mb-6 flex items-center text-white transition-all duration-1000 delay-500 ${
               isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
             }`}>
-              <i className="fas fa-graduation-cap mr-3 text-gray-700"></i> Education
+              <i className="fas fa-graduation-cap mr-3 text-purple-400"></i> Education
             </h3>
             
             <div className="space-y-8">
@@ -146,14 +146,14 @@ const Resume = () => {
                   }`}
                   style={{ transitionDelay: `${600 + index * 150}ms` }}
                 >
-                  <div className="absolute left-0 top-0 w-4 h-4 rounded-full bg-black animate-pulse"></div>
+                  <div className="absolute left-0 top-0 w-4 h-4 rounded-full bg-purple-600 animate-pulse"></div>
                   {index < education.length - 1 && (
-                    <div className="absolute left-2 top-4 w-0.5 h-full bg-gray-300"></div>
+                    <div className="absolute left-2 top-4 w-0.5 h-full bg-purple-900"></div>
                   )}
-                  <div className="bg-gray-100 p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl hover:bg-gray-50 transition-all duration-300">
-                    <h4 className="text-xl font-medium mb-1 text-black">{edu.degree}</h4>
-                    <div className="text-gray-700 mb-2">{edu.institution} • {edu.period}</div>
-                    <p className="text-gray-600">{edu.description}</p>
+                  <div className="bg-purple-950/30 p-6 rounded-lg shadow-lg border border-purple-900 hover:shadow-xl hover:bg-purple-900/30 transition-all duration-300">
+                    <h4 className="text-xl font-medium mb-1 text-white">{edu.degree}</h4>
+                    <div className="text-purple-400 mb-2">{edu.institution} • {edu.period}</div>
+                    <p className="text-gray-400">{edu.description}</p>
                   </div>
                 </div>
               ))}

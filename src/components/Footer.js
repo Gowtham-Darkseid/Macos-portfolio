@@ -28,9 +28,9 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="py-8 bg-gray-100 border-t border-gray-200 relative overflow-hidden" ref={sectionRef}>
+    <footer className="py-8 bg-black border-t border-purple-900 relative overflow-hidden" ref={sectionRef}>
       {/* Background Animation */}
-      <div className="absolute inset-0 bg-gradient-to-r from-gray-50 to-gray-100 opacity-50"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-purple-950 to-black opacity-50"></div>
       
       <div className="container mx-auto px-6 text-center relative z-10">
         <div 
@@ -40,7 +40,7 @@ const Footer = () => {
           }`}
           style={{ transform: logoTransform }}
         >
-          <span className="text-2xl font-bold text-black hover:scale-110 transition-transform duration-300 cursor-default">
+          <span className="text-2xl font-bold text-white hover:scale-110 transition-transform duration-300 cursor-default">
             GOWTHAM
           </span>
         </div>
@@ -55,13 +55,13 @@ const Footer = () => {
           {[
             { href: 'https://github.com/Gowtham-Darkseid', icon: 'fab fa-github' },
             { href: 'https://www.linkedin.com/in/gowtham-darkseid/', icon: 'fab fa-linkedin-in' },
-            { href: 'https://twitter.com', icon: 'fab fa-twitter' },
+            { href: 'https://wa.me/916369838278', icon: 'fab fa-whatsapp' },
             { href: 'https://www.instagram.com/for__darkseid/', icon: 'fab fa-instagram' }
           ].map((social, index) => (
             <a 
               key={index}
               href={social.href} 
-              className="social-icon text-gray-700 hover:text-black transition-all duration-300 transform hover:scale-125 hover:-translate-y-1"
+              className="social-icon text-purple-400 hover:text-purple-300 transition-all duration-300 transform hover:scale-125 hover:-translate-y-1"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <i className={social.icon}></i>
@@ -76,7 +76,7 @@ const Footer = () => {
           }`}
           style={{ transform: textTransform }}
         >
-          <p className="text-gray-600 text-sm hover:text-gray-800 transition-colors duration-300">
+          <p className="text-gray-400 text-sm hover:text-gray-300 transition-colors duration-300">
             &copy; 2025 Gowtham. All rights reserved.
           </p>
         </div>

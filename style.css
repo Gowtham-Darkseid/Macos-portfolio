@@ -1,21 +1,21 @@
 :root {
-            --primary: #6366f1;
-            --secondary: #10b981;
-            --dark: #0f172a;
-            --light: #f8fafc;
+            --primary: #8b5cf6;
+            --secondary: #a78bfa;
+            --dark: #000000;
+            --light: #ffffff;
         }
         
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--dark);
-            color: var(--light);
+            background-color: #000000;
+            color: #ffffff;
             overflow-x: hidden;
         }
         
         /* Hero section specific styles */
         #home {
-            background-color: #ffffff !important;
-            color: #000000 !important;
+            background-color: #000000 !important;
+            color: #ffffff !important;
         }
         
         #home * {
@@ -33,10 +33,10 @@
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: var(--dark);
+            background: #000000;
         }
         ::-webkit-scrollbar-thumb {
-            background: var(--primary);
+            background: #8b5cf6;
             border-radius: 10px;
         }
         
@@ -93,7 +93,7 @@
         
         /* Gradient text */
         .gradient-text {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            background: linear-gradient(90deg, #8b5cf6, #a78bfa);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -150,7 +150,7 @@
         /* Navbar */
         .navbar {
             backdrop-filter: blur(10px);
-            background-color: rgba(15, 23, 42, 0.8);
+            background-color: rgba(0, 0, 0, 0.9);
         }
         
         /* Mobile menu */

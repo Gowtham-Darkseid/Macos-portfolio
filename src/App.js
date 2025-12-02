@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './components/Header';
+import MacOSMenuBar from './components/MacOSMenuBar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
@@ -13,7 +13,7 @@ import './index.css';
 function App() {
   return (
     <div className="App">
-      <Header />
+      <MacOSMenuBar appName="GOWTHAM" />
       <Hero />
       <About />
       <Skills />

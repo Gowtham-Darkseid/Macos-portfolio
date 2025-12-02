@@ -13,10 +13,10 @@ module.exports = {
         'inter': ['Inter', 'sans-serif'],
       },
       colors: {
-        primary: '#6366f1',
-        secondary: '#10b981',
-        dark: '#0f172a',
-        light: '#f8fafc',
+        primary: '#8b5cf6',
+        secondary: '#a78bfa',
+        dark: '#000000',
+        light: '#ffffff',
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',

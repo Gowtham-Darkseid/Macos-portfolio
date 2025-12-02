@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParallax } from '../hooks/useParallax';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import ContributionGraph from './ui/ContributionGraph';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -50,7 +51,7 @@ const Projects = () => {
           ease: 'none',
           scrollTrigger: {
             trigger: horizontalRef.current,
-            start: 'top top',
+            start: 'center center',
             end: () => `+=${scrollWidth - viewportWidth + viewportWidth / 2}`,
             scrub: 1,
             pin: true,
@@ -153,6 +154,25 @@ const Projects = () => {
     }
   ];
 
+  const generateSampleContributions = (days = 120) => {
+    const arr = [];
+    for (let i = 0; i < days; i++) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      const date = d.toISOString().split('T')[0];
+      const count = Math.floor(Math.random() * 8);
+      let level = 0;
+      if (count > 6) level = 4;
+      else if (count > 4) level = 3;
+      else if (count > 2) level = 2;
+      else if (count > 0) level = 1;
+      arr.push({ date, count, level });
+    }
+    return arr;
+  };
+
+  const contributionData = generateSampleContributions(120);
+
   const renderProjectCard = (project, index, isDesktop = false) => (
     <>
       {/* Image Container */}
@@ -164,58 +184,58 @@ const Projects = () => {
           } 
           ${isDesktop ? 'h-96' : 'h-48 sm:h-56 md:h-64'}`}>
           
-          <div className="absolute inset-0 border-2 border-black/20 rounded-inherit z-10" />
+          <div className="absolute inset-0 border-2 border-purple-600/20 rounded-inherit z-10" />
           <img 
             src={project.image} 
             alt={project.title} 
             className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
           />
-          <div className="absolute inset-0 bg-white/60 group-hover:bg-white/30 transition-all duration-500" />
+          <div className="absolute inset-0 bg-black/60 group-hover:bg-black/30 transition-all duration-500" />
           
           <div className={`absolute z-20 ${isDesktop ? 'top-4 left-4' : 'top-3 left-3 sm:top-4 sm:left-4'}`}>
-            <span className={`font-black text-black/20 leading-none ${isDesktop ? 'text-6xl' : 'text-3xl sm:text-4xl'}`}>
+            <span className={`font-black text-white/20 leading-none ${isDesktop ? 'text-6xl' : 'text-3xl sm:text-4xl'}`}>
               {String(index + 1).padStart(2, '0')}
             </span>
           </div>
           
           <div className={`absolute z-20 ${isDesktop ? 'top-4 right-4' : 'top-3 right-3 sm:top-4 sm:right-4'}`}>
-            <span className={`bg-black text-white text-xs font-bold uppercase tracking-wider rounded-sm ${isDesktop ? 'px-3 py-1.5' : 'px-2 py-1 sm:px-3 sm:py-1.5'}`}>
+            <span className={`bg-purple-600 text-white text-xs font-bold uppercase tracking-wider rounded-sm ${isDesktop ? 'px-3 py-1.5' : 'px-2 py-1 sm:px-3 sm:py-1.5'}`}>
               {project.category}
             </span>
           </div>
           
           <div className={`absolute z-20 ${isDesktop ? 'bottom-4 left-4' : 'bottom-3 left-3 sm:bottom-4 sm:left-4'}`}>
-            <span className={`text-black/60 font-mono ${isDesktop ? 'text-sm' : 'text-xs sm:text-sm'}`}>
+            <span className={`text-white/60 font-mono ${isDesktop ? 'text-sm' : 'text-xs sm:text-sm'}`}>
               {project.year}
             </span>
           </div>
           
-          <div className="absolute inset-0 border-4 border-black opacity-0 group-hover:opacity-20 transition-all duration-500 rounded-inherit transform scale-95 group-hover:scale-100" />
+          <div className="absolute inset-0 border-4 border-purple-600 opacity-0 group-hover:opacity-20 transition-all duration-500 rounded-inherit transform scale-95 group-hover:scale-100" />
         </div>
       </div>
       
       {/* Content Container */}
       <div className={`flex flex-col justify-center ${isDesktop ? 'space-y-4' : 'space-y-3 sm:space-y-4 px-1 sm:px-2 w-full'}`}>
         <div className={isDesktop ? 'space-y-2' : 'space-y-1 sm:space-y-2'}>
-          <h3 className={`font-black text-black uppercase tracking-tight group-hover:tracking-wide transition-all duration-300 leading-tight ${isDesktop ? 'text-4xl' : 'text-xl sm:text-2xl md:text-3xl'}`}>
+          <h3 className={`font-black text-white uppercase tracking-tight group-hover:tracking-wide transition-all duration-300 leading-tight ${isDesktop ? 'text-4xl' : 'text-xl sm:text-2xl md:text-3xl'}`}>
             {project.title.includes('-') ? 
               project.title.split('-').map((word, wordIndex) => (
-                <span key={wordIndex} className={`${wordIndex % 2 === 0 ? 'block' : 'block text-gray-600'}`}>
+                <span key={wordIndex} className={`${wordIndex % 2 === 0 ? 'block' : 'block text-purple-400'}`}>
                   {word}
                 </span>
               )) :
               project.title.split(' ').map((word, wordIndex) => (
-                <span key={wordIndex} className={`${wordIndex % 2 === 0 ? 'inline' : 'inline text-gray-600'} mr-2`}>
+                <span key={wordIndex} className={`${wordIndex % 2 === 0 ? 'inline' : 'inline text-purple-400'} mr-2`}>
                   {word}
                 </span>
               ))
             }
           </h3>
           
-          <div className={`bg-black group-hover:w-24 transition-all duration-500 ${isDesktop ? 'w-16 h-1' : 'w-8 sm:w-12 h-0.5 sm:h-1 sm:group-hover:w-16'}`} />
+          <div className={`bg-purple-600 group-hover:w-24 transition-all duration-500 ${isDesktop ? 'w-16 h-1' : 'w-8 sm:w-12 h-0.5 sm:h-1 sm:group-hover:w-16'}`} />
         </div>
         
-        <p className={`text-gray-700 leading-relaxed group-hover:text-black transition-colors duration-300 ${isDesktop ? 'text-lg' : 'text-sm sm:text-base'}`}>
+        <p className={`text-gray-400 leading-relaxed group-hover:text-white transition-colors duration-300 ${isDesktop ? 'text-lg' : 'text-sm sm:text-base'}`}>
           {project.description}
         </p>
         
@@ -223,7 +243,7 @@ const Projects = () => {
           {project.technologies.map((tech, techIndex) => (
             <span 
               key={techIndex}
-              className={`border border-gray-400 text-gray-600 font-medium uppercase tracking-wide hover:border-black hover:text-black transition-all duration-300 ${isDesktop ? 'px-3 py-1 text-sm' : 'px-2 py-0.5 sm:px-2 sm:py-1 text-xs sm:text-sm'}`}
+              className={`border border-purple-600 text-purple-400 font-medium uppercase tracking-wide hover:border-purple-400 hover:text-purple-300 transition-all duration-300 ${isDesktop ? 'px-3 py-1 text-sm' : 'px-2 py-0.5 sm:px-2 sm:py-1 text-xs sm:text-sm'}`}
             >
               {tech}
             </span>
@@ -233,11 +253,11 @@ const Projects = () => {
         <div className={`flex items-center ${isDesktop ? 'gap-8 pt-4' : 'flex-col xs:flex-row items-start xs:items-center gap-3 sm:gap-4 pt-2'}`}>
           <a 
             href={project.github} 
-            className={`group/link flex items-center text-black hover:text-gray-700 transition-all duration-300 ${isDesktop ? 'gap-3' : 'gap-2 sm:gap-3'}`}
+            className={`group/link flex items-center text-white hover:text-purple-400 transition-all duration-300 ${isDesktop ? 'gap-3' : 'gap-2 sm:gap-3'}`}
             target="_blank"
             rel="noopener noreferrer"
           >
-            <div className={`border border-black rounded-full flex items-center justify-center group-hover/link:bg-black group-hover/link:text-white transition-all duration-300 ${isDesktop ? 'w-10 h-10' : 'w-7 h-7 sm:w-8 sm:h-8'}`}>
+            <div className={`border border-purple-600 rounded-full flex items-center justify-center group-hover/link:bg-purple-600 group-hover/link:text-white transition-all duration-300 ${isDesktop ? 'w-10 h-10' : 'w-7 h-7 sm:w-8 sm:h-8'}`}>
               <i className={`fab fa-github ${isDesktop ? 'text-sm' : 'text-xs sm:text-sm'}`}></i>
             </div>
             <span className={`font-medium uppercase tracking-wide ${isDesktop ? 'text-sm' : 'text-xs sm:text-sm'}`}>Code</span>
@@ -246,11 +266,11 @@ const Projects = () => {
           {project.live !== '#' && (
             <a 
               href={project.live} 
-              className={`group/link flex items-center text-black hover:text-gray-700 transition-all duration-300 ${isDesktop ? 'gap-3' : 'gap-2 sm:gap-3'}`}
+              className={`group/link flex items-center text-white hover:text-purple-400 transition-all duration-300 ${isDesktop ? 'gap-3' : 'gap-2 sm:gap-3'}`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <div className={`border border-black rounded-full flex items-center justify-center group-hover/link:bg-black group-hover/link:text-white transition-all duration-300 ${isDesktop ? 'w-10 h-10' : 'w-7 h-7 sm:w-8 sm:h-8'}`}>
+              <div className={`border border-purple-600 rounded-full flex items-center justify-center group-hover/link:bg-purple-600 group-hover/link:text-white transition-all duration-300 ${isDesktop ? 'w-10 h-10' : 'w-7 h-7 sm:w-8 sm:h-8'}`}>
                 <i className={`fas fa-external-link-alt ${isDesktop ? 'text-sm' : 'text-xs sm:text-sm'}`}></i>
               </div>
               <span className={`font-medium uppercase tracking-wide ${isDesktop ? 'text-sm' : 'text-xs sm:text-sm'}`}>Live</span>
@@ -259,35 +279,35 @@ const Projects = () => {
         </div>
         
         <div className={`flex items-center gap-2 ${isDesktop ? 'pt-4' : 'pt-2'}`}>
-          <div className={`bg-black ${isDesktop ? 'w-2 h-2' : 'w-1.5 h-1.5 sm:w-2 sm:h-2'}`}></div>
-          <div className="flex-1 h-px bg-gradient-to-r from-black/50 to-transparent"></div>
+          <div className={`bg-purple-600 ${isDesktop ? 'w-2 h-2' : 'w-1.5 h-1.5 sm:w-2 sm:h-2'}`}></div>
+          <div className="flex-1 h-px bg-gradient-to-r from-purple-600/50 to-transparent"></div>
         </div>
       </div>
     </>
   );
 
   return (
-    <section id="projects" className="bg-white relative overflow-hidden" ref={sectionRef}>
+    <section id="projects" className="bg-black relative overflow-hidden" ref={sectionRef}>
       {/* Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div 
           ref={bgRef1}
-          className="absolute top-20 left-5 w-24 md:w-32 h-24 md:h-32 bg-black/5 rounded-full blur-xl opacity-60"
+          className="absolute top-20 left-5 w-24 md:w-32 h-24 md:h-32 bg-purple-900 rounded-full blur-xl opacity-30"
           style={{ transform: bgTransform1 }}
         />
         <div 
           ref={bgRef2}
-          className="absolute top-1/2 right-10 w-32 md:w-48 h-32 md:h-48 bg-black/3 rounded-full blur-2xl opacity-40"
+          className="absolute top-1/2 right-10 w-32 md:w-48 h-32 md:h-48 bg-purple-800 rounded-full blur-2xl opacity-20"
           style={{ transform: bgTransform2 }}
         />
         <div 
           ref={bgRef3}
-          className="absolute bottom-20 left-1/4 w-16 md:w-24 h-16 md:h-24 bg-black/8 rounded-full blur-lg opacity-50"
+          className="absolute bottom-20 left-1/4 w-16 md:w-24 h-16 md:h-24 bg-purple-700 rounded-full blur-lg opacity-25"
           style={{ transform: bgTransform3 }}
         />
-        <div className="hidden md:block absolute top-1/4 left-1/2 w-1 h-32 bg-black/10 transform rotate-45" />
-        <div className="hidden md:block absolute bottom-1/3 right-1/4 w-1 h-24 bg-black/5 transform rotate-12" />
-        <div className="hidden md:block absolute top-2/3 left-10 w-16 h-1 bg-black/8 transform rotate-45" />
+        <div className="hidden md:block absolute top-1/4 left-1/2 w-1 h-32 bg-purple-600/10 transform rotate-45" />
+        <div className="hidden md:block absolute bottom-1/3 right-1/4 w-1 h-24 bg-purple-500/5 transform rotate-12" />
+        <div className="hidden md:block absolute top-2/3 left-10 w-16 h-1 bg-purple-600/10 transform rotate-45" />
       </div>
 
       {/* Mobile Title Section */}
@@ -297,15 +317,15 @@ const Projects = () => {
             <h2 className={`text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-4 transition-all duration-1000 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}>
-              <span className="text-black font-light tracking-wider">
+              <span className="text-white font-light tracking-wider">
                 FEATURED
               </span>
               <br />
-              <span className="text-black font-black tracking-tighter">
+              <span className="text-white font-black tracking-tighter">
                 PROJECTS
               </span>
             </h2>
-            <p className={`text-gray-600 text-center text-base md:text-lg mb-8 md:mb-12 max-w-2xl mx-auto px-4 transition-all duration-1000 delay-200 ${
+            <p className={`text-gray-400 text-center text-base md:text-lg mb-8 md:mb-12 max-w-2xl mx-auto px-4 transition-all duration-1000 delay-200 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}>
               A curated collection of innovative solutions and creative implementations
@@ -317,21 +337,21 @@ const Projects = () => {
       {/* Horizontal Scroll Container - Desktop Only */}
       <div ref={horizontalRef} className="hidden lg:block">
         {/* Desktop Title - Fixed at top */}
-        <div className="absolute top-0 left-0 right-0 z-50 py-12 bg-white">
+        <div className="absolute top-0 left-0 right-0 z-50 py-12 bg-black">
           <div className="container mx-auto px-6">
             <h2 className="text-5xl md:text-6xl font-bold text-center mb-4">
-              <span className="text-black font-light tracking-wider">
+              <span className="text-white font-light tracking-wider">
                 FEATURED
               </span>
               <br />
-              <span className="text-black font-black tracking-tighter">
+              <span className="text-white font-black tracking-tighter">
                 PROJECTS
               </span>
             </h2>
-            <p className="text-gray-600 text-center text-lg mb-6 max-w-2xl mx-auto">
+            <p className="text-gray-400 text-center text-lg mb-6 max-w-2xl mx-auto">
               A curated collection of innovative solutions and creative implementations
             </p>
-            <p className="text-center text-sm text-gray-400">
+            <p className="text-center text-sm text-gray-500">
               <i className="fas fa-arrow-right mr-2 animate-pulse"></i>
               Scroll to explore projects horizontally
               <i className="fas fa-arrow-left ml-2 animate-pulse"></i>
@@ -360,7 +380,7 @@ const Projects = () => {
             <div className="text-center">
               <div className="inline-flex flex-col items-center gap-6">
                 <button 
-                  className="group relative px-12 py-4 border-2 border-black text-black font-bold uppercase tracking-wider transition-all duration-500 transform hover:scale-105 hover:bg-black hover:text-white overflow-hidden"
+                  className="group relative px-12 py-4 border-2 border-purple-600 text-white font-bold uppercase tracking-wider transition-all duration-500 transform hover:scale-105 hover:bg-purple-600 hover:text-white overflow-hidden"
                   onClick={() => window.open('https://github.com/Gowtham-Darkseid', '_blank')}
                 >
                   <span className="relative flex items-center gap-4">
@@ -369,13 +389,13 @@ const Projects = () => {
                     <i className="fas fa-arrow-right text-sm group-hover:translate-x-2 transition-transform duration-300"></i>
                   </span>
                   
-                  <div className="absolute inset-0 border-2 border-black opacity-0 group-hover:opacity-100 transform scale-110 group-hover:scale-100 transition-all duration-500"></div>
+                  <div className="absolute inset-0 border-2 border-purple-600 opacity-0 group-hover:opacity-100 transform scale-110 group-hover:scale-100 transition-all duration-500"></div>
                 </button>
                 
                 <div className="flex items-center gap-8 text-gray-500 text-sm uppercase tracking-wider">
-                  <span className="border-b border-gray-300 pb-1">{projects.length} Projects</span>
-                  <span className="border-b border-gray-300 pb-1">Multiple Technologies</span>
-                  <span className="border-b border-gray-300 pb-1">Innovation</span>
+                  <span className="border-b border-purple-900 pb-1">{projects.length} Projects</span>
+                  <span className="border-b border-purple-900 pb-1">Multiple Technologies</span>
+                  <span className="border-b border-purple-900 pb-1">Innovation</span>
                 </div>
               </div>
             </div>
@@ -410,7 +430,7 @@ const Projects = () => {
           <div className="mt-12 text-center">
             <div className="inline-flex flex-col items-center gap-4 px-4">
               <button 
-                className="group relative px-8 py-3 sm:px-12 sm:py-4 border-2 border-black text-black font-bold uppercase tracking-wider transition-all duration-500 transform hover:scale-105 hover:bg-black hover:text-white overflow-hidden text-sm sm:text-base"
+                className="group relative px-8 py-3 sm:px-12 sm:py-4 border-2 border-purple-600 text-white font-bold uppercase tracking-wider transition-all duration-500 transform hover:scale-105 hover:bg-purple-600 hover:text-white overflow-hidden text-sm sm:text-base"
                 onClick={() => window.open('https://github.com/Gowtham-Darkseid', '_blank')}
               >
                 <span className="relative flex items-center gap-2 sm:gap-4">
@@ -420,15 +440,26 @@ const Projects = () => {
                   <i className="fas fa-arrow-right text-xs sm:text-sm group-hover:translate-x-2 transition-transform duration-300"></i>
                 </span>
                 
-                <div className="absolute inset-0 border-2 border-black opacity-0 group-hover:opacity-100 transform scale-110 group-hover:scale-100 transition-all duration-500"></div>
+                <div className="absolute inset-0 border-2 border-purple-600 opacity-0 group-hover:opacity-100 transform scale-110 group-hover:scale-100 transition-all duration-500"></div>
               </button>
               
               <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8 text-gray-500 text-xs sm:text-sm uppercase tracking-wider">
-                <span className="border-b border-gray-300 pb-1">{projects.length} Projects</span>
-                <span className="border-b border-gray-300 pb-1 hidden sm:inline">Multiple Technologies</span>
-                <span className="border-b border-gray-300 pb-1">Innovation</span>
+                <span className="border-b border-purple-900 pb-1">{projects.length} Projects</span>
+                <span className="border-b border-purple-900 pb-1 hidden sm:inline">Multiple Technologies</span>
+                <span className="border-b border-purple-900 pb-1">Innovation</span>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Contribution Graph under Projects - Visible on all screens */}
+      <div className="container mx-auto px-6 py-16 relative z-10">
+        <div className="max-w-5xl mx-auto">
+          <h3 className="text-3xl md:text-4xl font-bold text-white mb-2 text-center">Open Source Contributions</h3>
+          <p className="text-gray-400 text-center mb-8">My coding activity over the past months</p>
+          <div className="bg-gray-900/30 border border-purple-900/30 rounded-2xl p-6">
+            <ContributionGraph data={contributionData} year={new Date().getFullYear()} />
           </div>
         </div>
       </div>
