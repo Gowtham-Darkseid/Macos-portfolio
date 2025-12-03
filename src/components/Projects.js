@@ -7,7 +7,6 @@ import ContributionGraph from './ui/ContributionGraph';
 gsap.registerPlugin(ScrollTrigger);
 
 const Projects = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const [hoveredProject, setHoveredProject] = useState(null);
   const sectionRef = useRef(null);
   const horizontalRef = useRef(null);
@@ -18,23 +17,6 @@ const Projects = () => {
   const [bgRef1, bgTransform1] = useParallax(0.25, 0);
   const [bgRef2, bgTransform2] = useParallax(-0.15, 0);
   const [bgRef3, bgTransform3] = useParallax(0.35, 0);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     // Only apply horizontal scroll on desktop
@@ -115,7 +97,7 @@ const Projects = () => {
     {
       title: 'SQL Injection Practice Site',
       description: 'A cybersecurity learning platform designed to teach SQL injection vulnerabilities and defense techniques in a controlled environment.',
-      image: '/assets/image.png',
+      image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80',
       technologies: ['PHP', 'MySQL', 'Security'],
       github: 'https://github.com/Gowtham-Darkseid',
       live: '#',
@@ -125,7 +107,7 @@ const Projects = () => {
     {
       title: 'Mail Composer',
       description: 'A modern email composition tool with rich text editing, template management, and advanced formatting capabilities.',
-      image: '/assets/image.png',
+      image: 'https://images.unsplash.com/photo-1557200134-90327ee9fafa?w=800&q=80',
       technologies: ['React', 'Node.js', 'EmailJS'],
       github: 'https://github.com/Gowtham-Darkseid',
       live: '#',
@@ -135,7 +117,7 @@ const Projects = () => {
     {
       title: 'EV Motors',
       description: 'An electric vehicle showcase platform featuring modern designs, specifications, and interactive configurator for eco-friendly transportation.',
-      image: '/assets/image.png',
+      image: 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800&q=80',
       technologies: ['Next.js', 'TypeScript', 'Framer Motion'],
       github: 'https://github.com/Gowtham-Darkseid',
       live: '#',
@@ -145,7 +127,7 @@ const Projects = () => {
     {
       title: 'Live Weather Site',
       description: 'A real-time weather application providing detailed forecasts, interactive maps, and location-based weather alerts.',
-      image: '/assets/image.png',
+      image: 'https://images.unsplash.com/photo-1592210454359-9043f067919b?w=800&q=80',
       technologies: ['React', 'Weather API', 'Charts.js'],
       github: 'https://github.com/Gowtham-Darkseid',
       live: '#',
@@ -190,7 +172,7 @@ const Projects = () => {
             alt={project.title} 
             className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
           />
-          <div className="absolute inset-0 bg-black/60 group-hover:bg-black/30 transition-all duration-500" />
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-900/70 via-black/60 to-purple-950/80 group-hover:from-purple-900/40 group-hover:via-black/30 group-hover:to-purple-950/50 transition-all duration-500" />
           
           <div className={`absolute z-20 ${isDesktop ? 'top-4 left-4' : 'top-3 left-3 sm:top-4 sm:left-4'}`}>
             <span className={`font-black text-white/20 leading-none ${isDesktop ? 'text-6xl' : 'text-3xl sm:text-4xl'}`}>
@@ -314,9 +296,7 @@ const Projects = () => {
       <div className="lg:hidden py-8 sm:py-12 md:py-20">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 relative z-10 max-w-7xl">
           <div ref={titleRef} style={{ transform: titleTransform }}>
-            <h2 className={`text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-4 transition-all duration-1000 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}>
+            <h2 className={`text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-4 transition-all duration-1000 opacity-100 translate-y-0`}>
               <span className="text-white font-light tracking-wider">
                 FEATURED
               </span>
@@ -325,9 +305,7 @@ const Projects = () => {
                 PROJECTS
               </span>
             </h2>
-            <p className={`text-gray-400 text-center text-base md:text-lg mb-8 md:mb-12 max-w-2xl mx-auto px-4 transition-all duration-1000 delay-200 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}>
+            <p className={`text-gray-400 text-center text-base md:text-lg mb-8 md:mb-12 max-w-2xl mx-auto px-4 transition-all duration-1000 delay-200 opacity-100 translate-y-0`}>
               A curated collection of innovative solutions and creative implementations
             </p>
           </div>
@@ -410,9 +388,7 @@ const Projects = () => {
             {projects.map((project, index) => (
               <div 
                 key={`mobile-${index}`}
-                className={`group relative transition-all duration-1000 ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                } ${hoveredProject === index ? 'scale-[1.01]' : ''}`}
+                className={`group relative transition-all duration-1000 opacity-100 translate-y-0 ${hoveredProject === index ? 'scale-[1.01]' : ''}`}
                 style={{ 
                   transitionDelay: `${200 + index * 150}ms`
                 }}

@@ -22,7 +22,7 @@ const Hero = () => {
       </div>
       
       {/* Center text */}
-      <div className="relative z-10 text-center text-white transition-colors duration-500 px-4 max-w-6xl mx-auto -mt-16 md:mt-0">
+      <div className="relative z-10 text-center text-white transition-colors duration-500 px-4 max-w-6xl mx-auto -mt-20 md:mt-0">
         <h1 
           className={`text-5xl md:text-[8rem] lg:text-[10rem] font-extralight tracking-[0.2em] mb-6 transition-all duration-1000 ease-out ${
             mounted 

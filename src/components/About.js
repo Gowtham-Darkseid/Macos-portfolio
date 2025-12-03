@@ -5,7 +5,9 @@ const About = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [activeCard, setActiveCard] = useState(null);
+  const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
   const sectionRef = useRef(null);
+  const imageCardRef = useRef(null);
   
   // Advanced parallax effects for bidirectional animations
   const [titleRef, , , , getTitleEntrance] = useAdvancedParallax(0.1);
@@ -39,9 +41,29 @@ const About = () => {
     });
   };
 
+  const handleImageMouseMove = (e) => {
+    if (!imageCardRef.current) return;
+    
+    const rect = imageCardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = ((y - centerY) / centerY) * -15;
+    const rotateY = ((x - centerX) / centerX) * 15;
+    
+    setTilt({ rotateX, rotateY });
+  };
+
+  const handleImageMouseLeave = () => {
+    setTilt({ rotateX: 0, rotateY: 0 });
+  };
+
   const personalInfo = [
     { label: "Name", value: "Gowtham", icon: "👤" },
-    { label: "Email", value: "graj200026@gmail.com", icon: "📧" },
+    { label: "Email", value: "graj200026@gmail.com", icon: "✉️" },
     { label: "Location", value: "Sivakasi, TN", icon: "📍" },
     { label: "Status", value: "Available", icon: "🟢" }
   ];
@@ -97,12 +119,26 @@ const About = () => {
           <div className={`lg:w-2/5 transition-all duration-1000 delay-200 ${
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
           }`}>
-            <div className="relative group" ref={imageRef} style={getImageEntrance(200, 'left')}>
+            <div 
+              className="relative group" 
+              ref={imageRef} 
+              style={getImageEntrance(200, 'left')}
+              onMouseMove={handleImageMouseMove}
+              onMouseLeave={handleImageMouseLeave}
+            >
               {/* Floating Image Container */}
-              <div className="relative w-80 h-80 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] mx-auto">
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-900 to-purple-700 rounded-2xl transform rotate-6 group-hover:rotate-12 transition-transform duration-500" />
-                <div className="absolute inset-0 bg-purple-600 rounded-2xl transform -rotate-3 group-hover:-rotate-6 transition-transform duration-500" />
-                <div className="relative w-full h-full bg-white rounded-2xl overflow-hidden transform group-hover:scale-105 transition-transform duration-500 shadow-2xl">
+              <div 
+                ref={imageCardRef}
+                className="relative w-80 h-80 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] mx-auto"
+                style={{
+                  transform: `perspective(1000px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
+                  transition: 'transform 0.1s ease-out',
+                  transformStyle: 'preserve-3d'
+                }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-900 to-purple-700 rounded-2xl transform rotate-6 group-hover:rotate-12 transition-transform duration-500" style={{ transform: 'translateZ(20px)' }} />
+                <div className="absolute inset-0 bg-purple-600 rounded-2xl transform -rotate-3 group-hover:-rotate-6 transition-transform duration-500" style={{ transform: 'translateZ(40px)' }} />
+                <div className="relative w-full h-full bg-white rounded-2xl overflow-hidden transform group-hover:scale-105 transition-transform duration-500 shadow-2xl" style={{ transform: 'translateZ(60px)' }}>
                   <img 
                     src="/assets/profile.jpeg" 
                     alt="Gowtham" 
@@ -113,10 +149,10 @@ const About = () => {
               </div>
 
               {/* Floating Elements */}
-              <div className="absolute -top-6 -right-6 w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl animate-bounce shadow-lg shadow-purple-500/50" style={{ background: 'linear-gradient(135deg, #a855f7 0%, #7c3aed 100%)' }}>
+              <div className="absolute -top-6 -right-6 w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl animate-bounce shadow-lg shadow-purple-500/50" style={{ background: 'linear-gradient(135deg, #a855f7 0%, #7c3aed 100%)', transform: 'translateZ(80px)' }}>
                 👋
               </div>
-              <div className="absolute -bottom-6 -left-6 w-20 h-20 rounded-full flex items-center justify-center text-3xl animate-pulse shadow-lg shadow-purple-500/50" style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)' }}>
+              <div className="absolute -bottom-6 -left-6 w-20 h-20 rounded-full flex items-center justify-center text-3xl animate-pulse shadow-lg shadow-purple-500/50" style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)', transform: 'translateZ(80px)' }}>
                 💻
               </div>
             </div>
@@ -140,11 +176,11 @@ const About = () => {
             </div>
 
             {/* Personal Info Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-12">
               {personalInfo.map((info, index) => (
                 <div
                   key={index}
-                  className={`p-6 bg-purple-950/30 rounded-xl border-2 border-transparent hover:border-purple-600 transition-all duration-300 cursor-pointer transform hover:scale-105 ${
+                  className={`p-4 md:p-6 bg-purple-950/30 rounded-lg md:rounded-xl border-2 border-transparent hover:border-purple-600 transition-all duration-300 cursor-pointer transform hover:scale-105 ${
                     activeCard === index ? 'border-purple-600 bg-purple-900 text-white' : ''
                   }`}
                   onMouseEnter={() => setActiveCard(index)}
@@ -154,17 +190,26 @@ const About = () => {
                     animation: isVisible ? 'slideInUp 0.6s ease-out forwards' : 'none'
                   }}
                 >
-                  <div className="flex items-center space-x-4">
-                    <div className={`w-12 h-12 rounded-full flex items-center justify-center text-2xl ${
-                      activeCard === index ? 'bg-purple-400 text-black' : 'bg-purple-900'
-                    }`}>
+                  <div className="flex items-center space-x-3 md:space-x-4">
+                    <div 
+                      className={`w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-xl md:text-2xl transform transition-all duration-300 flex-shrink-0 ${
+                        activeCard === index ? 'scale-110 shadow-lg shadow-purple-500/50' : ''
+                      }`}
+                      style={{
+                        background: activeCard === index 
+                          ? 'linear-gradient(135deg, #a855f7 0%, #7c3aed 100%)'
+                          : 'linear-gradient(135deg, rgba(168, 85, 247, 0.3) 0%, rgba(124, 58, 237, 0.3) 100%)',
+                        border: activeCard === index ? '2px solid rgba(168, 85, 247, 0.5)' : '2px solid rgba(139, 92, 246, 0.2)',
+                        aspectRatio: '1/1'
+                      }}
+                    >
                       {info.icon}
                     </div>
-                    <div>
-                      <p className={`text-lg font-medium ${activeCard === index ? 'text-purple-200' : 'text-gray-400'}`}>
+                    <div className="min-w-0">
+                      <p className={`text-sm md:text-lg font-medium ${activeCard === index ? 'text-purple-200' : 'text-gray-400'}`}>
                         {info.label}
                       </p>
-                      <p className={`text-xl font-semibold ${activeCard === index ? 'text-white' : 'text-white'}`}>
+                      <p className={`text-base md:text-xl font-semibold truncate ${activeCard === index ? 'text-white' : 'text-white'}`}>
                         {info.value}
                       </p>
                     </div>
