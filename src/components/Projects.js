@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Projects = () => {
   const [hoveredProject, setHoveredProject] = useState(null);
+  const [contributionData, setContributionData] = useState([]);
   const sectionRef = useRef(null);
   const horizontalRef = useRef(null);
   const projectsContainerRef = useRef(null);
@@ -136,24 +137,103 @@ const Projects = () => {
     }
   ];
 
-  const generateSampleContributions = (days = 120) => {
-    const arr = [];
-    for (let i = 0; i < days; i++) {
-      const d = new Date();
-      d.setDate(d.getDate() - i);
-      const date = d.toISOString().split('T')[0];
-      const count = Math.floor(Math.random() * 8);
-      let level = 0;
-      if (count > 6) level = 4;
-      else if (count > 4) level = 3;
-      else if (count > 2) level = 2;
-      else if (count > 0) level = 1;
-      arr.push({ date, count, level });
-    }
-    return arr;
-  };
+  // Fetch GitHub contributions
+  useEffect(() => {
+    const fetchGitHubContributions = async () => {
+      try {
+        const username = 'Gowtham-Darkseid';
+        const year = new Date().getFullYear();
+        
+        // GitHub GraphQL API query
+        const query = `
+          query($userName:String!, $from:DateTime!, $to:DateTime!) {
+            user(login: $userName) {
+              contributionsCollection(from: $from, to: $to) {
+                contributionCalendar {
+                  totalContributions
+                  weeks {
+                    contributionDays {
+                      contributionCount
+                      date
+                    }
+                  }
+                }
+              }
+            }
+          }
+        `;
 
-  const contributionData = generateSampleContributions(120);
+        const variables = {
+          userName: username,
+          from: `${year}-01-01T00:00:00Z`,
+          to: `${year}-12-31T23:59:59Z`
+        };
+
+        const response = await fetch('https://api.github.com/graphql', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // Note: For public data, you can use a personal access token
+            // For now, we'll use a fallback if the API fails
+          },
+          body: JSON.stringify({ query, variables })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data?.data?.user?.contributionsCollection?.contributionCalendar?.weeks) {
+            const weeks = data.data.user.contributionsCollection.contributionCalendar.weeks;
+            const contributions = [];
+            
+            weeks.forEach(week => {
+              week.contributionDays.forEach(day => {
+                const count = day.contributionCount;
+                let level = 0;
+                if (count > 10) level = 4;
+                else if (count > 6) level = 3;
+                else if (count > 3) level = 2;
+                else if (count > 0) level = 1;
+                
+                contributions.push({
+                  date: day.date,
+                  count: count,
+                  level: level
+                });
+              });
+            });
+            
+            setContributionData(contributions);
+          }
+        } else {
+          // Fallback to sample data if API fails
+          generateSampleContributions();
+        }
+      } catch (error) {
+        console.error('Error fetching GitHub contributions:', error);
+        // Fallback to sample data
+        generateSampleContributions();
+      }
+    };
+
+    const generateSampleContributions = () => {
+      const arr = [];
+      for (let i = 0; i < 365; i++) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const date = d.toISOString().split('T')[0];
+        const count = Math.floor(Math.random() * 8);
+        let level = 0;
+        if (count > 6) level = 4;
+        else if (count > 4) level = 3;
+        else if (count > 2) level = 2;
+        else if (count > 0) level = 1;
+        arr.push({ date, count, level });
+      }
+      setContributionData(arr);
+    };
+
+    fetchGitHubContributions();
+  }, []);
 
   const renderProjectCard = (project, index, isDesktop = false) => (
     <>

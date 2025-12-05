@@ -12,6 +12,7 @@ const Resume = () => {
   const [educationRef, educationTransform] = useParallax(-0.1, 0);
   const [bgRef1, bgTransform1] = useParallax(0.3, 0);
   const [bgRef2, bgTransform2] = useParallax(-0.25, 0);
+  const [bgImageRef, bgImageTransform] = useParallax(-0.15, 0);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -62,8 +63,23 @@ const Resume = () => {
 
   return (
     <section id="resume" className="py-20 bg-black relative overflow-hidden" ref={sectionRef}>
+      {/* Parallax Background Image */}
+      <div 
+        ref={bgImageRef}
+        className="absolute inset-0 z-0"
+        style={{ transform: bgImageTransform }}
+      >
+        <div 
+          className="fixed inset-0 bg-cover bg-center bg-no-repeat opacity-40"
+          style={{
+            backgroundImage: 'url(https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1920&q=80)'
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70"></div>
+      </div>
+
       {/* Parallax Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute inset-0 pointer-events-none z-5">
         <div 
           ref={bgRef1}
           className="absolute top-20 right-10 w-28 h-28 bg-purple-900 rounded-full opacity-40"
