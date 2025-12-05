@@ -13,23 +13,32 @@ import './index.css';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [showContent, setShowContent] = useState(false);
 
   const handleLoadComplete = () => {
     setIsLoading(false);
+    // Delay showing content to allow Hero animations to trigger
+    setTimeout(() => {
+      setShowContent(true);
+    }, 100);
   };
 
   return (
     <div className="App">
       {isLoading && <PageLoader onLoadComplete={handleLoadComplete} />}
-      <MacOSMenuBar appName="GOWTHAM" />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Resume />
-      <Contact />
-      <Footer />
-      <ScrollToTop />
+      {showContent && (
+        <>
+          <MacOSMenuBar appName="GOWTHAM" />
+          <Hero />
+          <About />
+          <Skills />
+          <Projects />
+          <Resume />
+          <Contact />
+          <Footer />
+          <ScrollToTop />
+        </>
+      )}
     </div>
   );
 }
