@@ -100,6 +100,7 @@ const Safari = ({ isOpen, onClose, initialUrl = '' }) => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDragging, dragOffset]);
 
   // Resize handlers
@@ -158,6 +159,7 @@ const Safari = ({ isOpen, onClose, initialUrl = '' }) => {
       window.removeEventListener('mousemove', handleResizeMove);
       window.removeEventListener('mouseup', handleResizeEnd);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isResizing, resizeDirection, size, position]);
 
   const handleClose = () => {

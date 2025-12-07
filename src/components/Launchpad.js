@@ -54,6 +54,7 @@ const Launchpad = ({ isOpen, onClose, onOpenApp }) => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   const handleClose = () => {

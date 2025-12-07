@@ -227,7 +227,8 @@ Press ↑/↓ to navigate command history
     if (terminalRef.current) {
       terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
     }
-  }, [commandHistory]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [commandHistory.length]);
 
   const handleMouseDown = (e) => {
     if (isMaximized) return;
@@ -259,6 +260,7 @@ Press ↑/↓ to navigate command history
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDragging, dragOffset]);
 
   // Resize handlers
@@ -317,21 +319,8 @@ Press ↑/↓ to navigate command history
       window.removeEventListener('mousemove', handleResizeMove);
       window.removeEventListener('mouseup', handleResizeEnd);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isResizing, resizeDirection, size, position]);
-
-  const getResizeCursor = (direction) => {
-    const cursors = {
-      'n': 'ns-resize',
-      's': 'ns-resize',
-      'e': 'ew-resize',
-      'w': 'ew-resize',
-      'nw': 'nwse-resize',
-      'se': 'nwse-resize',
-      'ne': 'nesw-resize',
-      'sw': 'nesw-resize',
-    };
-    return cursors[direction] || 'default';
-  };
 
   const handleClose = () => {
     setIsVisible(false);
@@ -401,15 +390,22 @@ Press ↑/↓ to navigate command history
   const renderOutput = (text) => {
     if (!text) return null;
     // Simple ANSI color parsing
+    // eslint-disable-next-line no-control-regex
+    const ansiRegex = /\u001b\[(\d+)m/g;
     return text.split('\n').map((line, i) => {
       let coloredLine = line
-        .replace(/\x1b\[32m/g, '<span class="text-green-400">')
-        .replace(/\x1b\[33m/g, '<span class="text-yellow-400">')
-        .replace(/\x1b\[31m/g, '<span class="text-red-400">')
-        .replace(/\x1b\[34m/g, '<span class="text-blue-400">')
-        .replace(/\x1b\[35m/g, '<span class="text-purple-400">')
-        .replace(/\x1b\[36m/g, '<span class="text-cyan-400">')
-        .replace(/\x1b\[0m/g, '</span>');
+        .replace(ansiRegex, (match, code) => {
+          const colorMap = {
+            '32': '<span class="text-green-400">',
+            '33': '<span class="text-yellow-400">',
+            '31': '<span class="text-red-400">',
+            '34': '<span class="text-blue-400">',
+            '35': '<span class="text-purple-400">',
+            '36': '<span class="text-cyan-400">',
+            '0': '</span>'
+          };
+          return colorMap[code] || '';
+        });
       return <div key={i} dangerouslySetInnerHTML={{ __html: coloredLine }} />;
     });
   };

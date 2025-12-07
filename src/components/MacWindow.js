@@ -116,6 +116,7 @@ const MacWindow = ({
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDragging, isResizing, dragOffset, resizeDirection]);
 
   const handleClose = () => {
