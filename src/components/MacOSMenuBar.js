@@ -3,46 +3,67 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 // Default menus
 const DEFAULT_MENUS = [
   {
-    label: 'Home',
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M9 22V12H15V22" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
+    label: 'File',
     items: [
-      { label: 'About', action: 'about' },
-      { label: 'Skills', action: 'skills' },
+      { label: 'New Window', shortcut: '⌘N' },
+      { label: 'Open...', shortcut: '⌘O' },
       { type: 'separator' },
       { label: 'Download Resume', action: 'resume', shortcut: '⌘R' },
-    ],
-  },
-  {
-    label: 'Projects',
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M22 19C22 19.5304 21.7893 20.0391 21.4142 20.4142C21.0391 20.7893 20.5304 21 20 21H4C3.46957 21 2.96086 20.7893 2.58579 20.4142C2.21071 20.0391 2 19.5304 2 19V5C2 4.46957 2.21071 3.96086 2.58579 3.58579C2.96086 3.21071 3.46957 3 4 3H9L11 6H20C20.5304 6 21.0391 6.21071 21.4142 6.58579C21.7893 6.96086 22 7.46957 22 8V19Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
-    items: [
-      { label: 'View All Projects', action: 'projects' },
-      { label: 'GitHub Profile', action: 'github' },
       { type: 'separator' },
-      { label: 'Contributions', action: 'contributions' },
+      { label: 'Close Window', shortcut: '⌘W' },
     ],
   },
   {
-    label: 'Contact',
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M22 6L12 13L2 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
+    label: 'Edit',
     items: [
-      { label: 'Email Me', action: 'email' },
+      { label: 'Undo', shortcut: '⌘Z' },
+      { label: 'Redo', shortcut: '⇧⌘Z' },
+      { type: 'separator' },
+      { label: 'Cut', shortcut: '⌘X' },
+      { label: 'Copy', shortcut: '⌘C' },
+      { label: 'Paste', shortcut: '⌘V' },
+      { label: 'Select All', shortcut: '⌘A' },
+    ],
+  },
+  {
+    label: 'View',
+    items: [
+      { label: 'About Me', action: 'about' },
+      { label: 'Skills', action: 'skills' },
+      { label: 'Projects', action: 'projects' },
+      { type: 'separator' },
+      { label: 'Enter Full Screen', shortcut: '⌃⌘F' },
+    ],
+  },
+  {
+    label: 'Go',
+    items: [
+      { label: 'Home', action: 'home', shortcut: '⇧⌘H' },
+      { label: 'About', action: 'about' },
+      { label: 'Skills', action: 'skills' },
+      { label: 'Projects', action: 'projects' },
+      { label: 'Contact', action: 'contact' },
+      { type: 'separator' },
+      { label: 'GitHub Profile', action: 'github', shortcut: '⇧⌘G' },
       { label: 'LinkedIn', action: 'linkedin' },
-      { label: 'GitHub', action: 'github-profile' },
+    ],
+  },
+  {
+    label: 'Window',
+    items: [
+      { label: 'Minimize', shortcut: '⌘M' },
+      { label: 'Zoom' },
+      { type: 'separator' },
+      { label: 'Bring All to Front' },
+    ],
+  },
+  {
+    label: 'Help',
+    items: [
+      { label: 'Portfolio Help' },
+      { type: 'separator' },
+      { label: 'Contact Developer', action: 'contact' },
+      { label: 'Report an Issue', action: 'github' },
     ],
   },
 ];
@@ -156,6 +177,7 @@ const MacOSMenuBar = ({
   appName = 'Portfolio',
   menus = DEFAULT_MENUS,
   onMenuAction,
+  onSoundClick,
   className = ''
 }) => {
   const [currentTime, setCurrentTime] = useState('');
@@ -170,6 +192,10 @@ const MacOSMenuBar = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSong] = useState('Mild Music');
   const [showNotification, setShowNotification] = useState(false);
+  const [notificationDismissed, setNotificationDismissed] = useState(() => {
+    // Check if notification was previously dismissed in this session
+    return sessionStorage.getItem('musicNotificationDismissed') === 'true';
+  });
   const audioRef = useRef(null);
 
   const appleLogoRef = useRef(null);
@@ -198,21 +224,30 @@ const MacOSMenuBar = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Show notification after 3 seconds in hero section (desktop only)
+  // Show notification after 3 seconds in hero section (desktop only) - only once per session
   useEffect(() => {
-    if (!isMobile && isHeroSection && !isPlaying && !showNotification) {
+    if (!isMobile && isHeroSection && !isPlaying && !showNotification && !notificationDismissed) {
       const timer = setTimeout(() => {
         setShowNotification(true);
         
-        // Auto-hide after 8 seconds
+        // Auto-hide after 8 seconds and mark as dismissed
         setTimeout(() => {
           setShowNotification(false);
+          setNotificationDismissed(true);
+          sessionStorage.setItem('musicNotificationDismissed', 'true');
         }, 8000);
       }, 3000);
 
       return () => clearTimeout(timer);
     }
-  }, [isMobile, isHeroSection, isPlaying, showNotification]);
+  }, [isMobile, isHeroSection, isPlaying, showNotification, notificationDismissed]);
+
+  // Handle notification close
+  const dismissNotification = () => {
+    setShowNotification(false);
+    setNotificationDismissed(true);
+    sessionStorage.setItem('musicNotificationDismissed', 'true');
+  };
 
   // Detect mobile view
   useEffect(() => {
@@ -299,6 +334,12 @@ const MacOSMenuBar = ({
   }, [onMenuAction]);
 
   const handleSoundClick = useCallback(() => {
+    // If onSoundClick prop is provided, call it to open Spotify
+    if (onSoundClick) {
+      onSoundClick();
+      return;
+    }
+    
     if (!audioRef.current) {
       audioRef.current = new Audio('/assets/music.mp3');
       audioRef.current.loop = true;
@@ -312,7 +353,7 @@ const MacOSMenuBar = ({
       setIsPlaying(true);
       setShowNotification(false);
     }
-  }, [isPlaying]);
+  }, [isPlaying, onSoundClick]);
 
   const simulateSpeedTest = useCallback(() => {
     setIsTestingSpeed(true);
@@ -362,7 +403,7 @@ const MacOSMenuBar = ({
     <div 
       className={`fixed z-[100] transition-all duration-500 ease-out ${
         isHeroSection && !isMobile 
-          ? 'top-4 left-4 right-4' 
+          ? 'top-2 left-4 right-4' 
           : 'top-0 left-0 right-0'
       }`}
     >
@@ -485,11 +526,47 @@ const MacOSMenuBar = ({
           )}
 
           {/* Right section - status icons and clock */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
+            {/* Spotlight/Search Icon */}
+            <div 
+              className="cursor-pointer hover:opacity-80 transition-opacity duration-150"
+              title="Spotlight"
+            >
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 12C9.76142 12 12 9.76142 12 7C12 4.23858 9.76142 2 7 2C4.23858 2 2 4.23858 2 7C2 9.76142 4.23858 12 7 12Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M14 14L10.5 10.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+
+            {/* Bluetooth Icon */}
+            <div 
+              className="cursor-pointer hover:opacity-80 transition-opacity duration-150"
+              title="Bluetooth: On"
+            >
+              <svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 1V15M6 1L10 5L6 8M6 1L2 5M6 15L10 11L6 8M6 15L2 11L6 8" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+
+            {/* AirDrop Icon */}
+            <div 
+              className="cursor-pointer hover:opacity-80 transition-opacity duration-150 hidden lg:block"
+              title="AirDrop"
+            >
+              <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 10C9.10457 10 10 9.10457 10 8C10 6.89543 9.10457 6 8 6C6.89543 6 6 6.89543 6 8C6 9.10457 6.89543 10 8 10Z" fill="white"/>
+                <path d="M4.5 11.5C3.5 10.5 3 9.25 3 8C3 6.75 3.5 5.5 4.5 4.5" stroke="white" strokeWidth="1.2" strokeLinecap="round"/>
+                <path d="M11.5 4.5C12.5 5.5 13 6.75 13 8C13 9.25 12.5 10.5 11.5 11.5" stroke="white" strokeWidth="1.2" strokeLinecap="round"/>
+                <path d="M2 13C0.5 11.5 0 9.75 0 8C0 6.25 0.5 4.5 2 3" stroke="white" strokeWidth="1.2" strokeLinecap="round"/>
+                <path d="M14 3C15.5 4.5 16 6.25 16 8C16 9.75 15.5 11.5 14 13" stroke="white" strokeWidth="1.2" strokeLinecap="round"/>
+              </svg>
+            </div>
+
             {/* WiFi Icon */}
             <div 
               className="cursor-pointer hover:opacity-80 transition-opacity duration-150"
               onClick={handleWifiClick}
+              title="Wi-Fi"
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8 13.5C8.828 13.5 9.5 12.828 9.5 12C9.5 11.172 8.828 10.5 8 10.5C7.172 10.5 6.5 11.172 6.5 12C6.5 12.828 7.172 13.5 8 13.5Z" fill="white"/>
@@ -499,10 +576,23 @@ const MacOSMenuBar = ({
               </svg>
             </div>
 
+            {/* Battery Icon */}
+            <div 
+              className="cursor-pointer hover:opacity-80 transition-opacity duration-150 flex items-center"
+              title="Battery: 100%"
+            >
+              <svg width="22" height="12" viewBox="0 0 22 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0.5" y="0.5" width="18" height="11" rx="2.5" stroke="white" strokeOpacity="0.5"/>
+                <rect x="2" y="2" width="15" height="8" rx="1" fill="white"/>
+                <path d="M20 4V8C21.1046 8 22 7.10457 22 6C22 4.89543 21.1046 4 20 4Z" fill="white" fillOpacity="0.5"/>
+              </svg>
+            </div>
+
             {/* Sound Icon */}
             <div 
               className="cursor-pointer hover:opacity-80 transition-opacity duration-150"
               onClick={handleSoundClick}
+              title={isPlaying ? "Now Playing" : "Sound"}
             >
               {isPlaying ? (
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -519,11 +609,26 @@ const MacOSMenuBar = ({
               )}
             </div>
 
-            {/* Clock */}
-            <span
-              className="text-white text-sm font-medium select-none cursor-pointer hover:opacity-80 transition-opacity duration-150"
+            {/* Control Center Icon */}
+            <div 
+              className="cursor-pointer hover:opacity-80 transition-opacity duration-150"
+              onClick={() => setControlCenterOpen(!controlCenterOpen)}
+              title="Control Center"
             >
-              {currentTime}
+              <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="1" y="1" width="6" height="6" rx="1.5" stroke="white" strokeWidth="1.5"/>
+                <rect x="9" y="1" width="6" height="6" rx="1.5" stroke="white" strokeWidth="1.5"/>
+                <rect x="1" y="9" width="6" height="4" rx="1.5" stroke="white" strokeWidth="1.5"/>
+                <rect x="9" y="9" width="6" height="4" rx="1.5" stroke="white" strokeWidth="1.5"/>
+              </svg>
+            </div>
+
+            {/* Date and Clock */}
+            <span
+              className="text-white text-sm font-medium select-none cursor-pointer hover:opacity-80 transition-opacity duration-150 whitespace-nowrap"
+              title="Calendar"
+            >
+              {new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })} {currentTime}
             </span>
           </div>
         </div>
@@ -1004,7 +1109,7 @@ const MacOSMenuBar = ({
         >
           {/* Close button */}
           <button
-            onClick={() => setShowNotification(false)}
+            onClick={dismissNotification}
             className="absolute top-3 right-3 w-6 h-6 rounded-full hover:bg-white/10 transition-all duration-150 flex items-center justify-center"
           >
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

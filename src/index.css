@@ -4,6 +4,16 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
+/* Hide scrollbar globally */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
 @layer base {
   body {
     font-family: 'Inter', sans-serif;
@@ -1136,3 +1146,212 @@
   animation: pulse-scale 2s ease-in-out infinite;
 }
 
+/* ========================================
+   CARTOON GOWTHAM LOADER ANIMATIONS
+   ======================================== */
+
+/* Bouncy letter pop-in with squash and stretch */
+.cartoon-letter {
+  display: inline-block;
+  animation: cartoonLetterPop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  opacity: 0;
+  transform-origin: center bottom;
+}
+
+@keyframes cartoonLetterPop {
+  0% {
+    opacity: 0;
+    transform: scale(0, 0) translateY(50px);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.3, 0.7) translateY(0);
+  }
+  60% {
+    transform: scale(0.8, 1.2) translateY(-10px);
+  }
+  80% {
+    transform: scale(1.1, 0.9) translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1, 1) translateY(0);
+  }
+}
+
+/* Idle bounce animation after pop-in */
+.cartoon-letter-container {
+  animation: cartoonLetterIdle 2s ease-in-out infinite;
+  animation-delay: inherit;
+}
+
+@keyframes cartoonLetterIdle {
+  0%, 100% {
+    transform: translateY(0) scale(1, 1);
+  }
+  25% {
+    transform: translateY(-8px) scale(0.95, 1.05);
+  }
+  50% {
+    transform: translateY(0) scale(1.02, 0.98);
+  }
+  75% {
+    transform: translateY(-4px) scale(0.98, 1.02);
+  }
+}
+
+/* White fill with slight shadow */
+.cartoon-letter-fill {
+  color: #ffffff;
+  text-shadow: 
+    2px 2px 0 #a855f7,
+    -1px -1px 0 #a855f7,
+    1px -1px 0 #a855f7,
+    -1px 1px 0 #a855f7,
+    0 4px 0 #7c3aed;
+}
+
+/* Purple outline effect */
+.cartoon-letter-outline {
+  color: transparent;
+  -webkit-text-stroke: 3px #a855f7;
+  text-shadow: 
+    3px 3px 0 #9333ea,
+    -2px -2px 0 #c084fc;
+}
+
+@media (min-width: 640px) {
+  .cartoon-letter-outline {
+    -webkit-text-stroke: 4px #a855f7;
+  }
+}
+
+/* Doodle spark animation */
+.doodle-spark {
+  opacity: 0;
+  animation: doodleSparkPop 0.8s ease-out forwards, doodleSparkTwinkle 1.5s ease-in-out infinite 0.8s;
+}
+
+@keyframes doodleSparkPop {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(var(--rotate, 0deg));
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.3) rotate(var(--rotate, 0deg));
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(var(--rotate, 0deg));
+  }
+}
+
+@keyframes doodleSparkTwinkle {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+.doodle-spark-fill {
+  animation: sparkColorShift 2s ease-in-out infinite;
+}
+
+@keyframes sparkColorShift {
+  0%, 100% {
+    fill: #a855f7;
+  }
+  50% {
+    fill: #c084fc;
+  }
+}
+
+/* Small floating dots */
+.doodle-dot {
+  opacity: 0;
+  animation: doodleDotPop 0.5s ease-out forwards, doodleDotFloat 2s ease-in-out infinite 0.5s;
+}
+
+@keyframes doodleDotPop {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+}
+
+@keyframes doodleDotFloat {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-5px);
+    opacity: 1;
+  }
+}
+
+/* Loading bar cartoon style */
+.cartoon-loading-bar {
+  background: linear-gradient(90deg, #a855f7 0%, #ffffff 50%, #c084fc 100%);
+  box-shadow: 
+    0 0 10px #a855f7,
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.cartoon-bar-shine {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 60%,
+    transparent 100%
+  );
+  animation: cartoonBarShine 1.5s ease-in-out infinite;
+}
+
+@keyframes cartoonBarShine {
+  0% {
+    transform: translateX(-150%);
+  }
+  100% {
+    transform: translateX(150%);
+  }
+}
+
+/* Loading text bounce */
+.cartoon-loading-text {
+  animation: cartoonTextBounce 1s ease-in-out infinite;
+}
+
+@keyframes cartoonTextBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* Bouncing dots */
+.cartoon-bounce-dot {
+  animation: cartoonDotBounce 0.6s ease-in-out infinite;
+}
+
+@keyframes cartoonDotBounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(0.9);
+  }
+}
