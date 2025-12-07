@@ -227,8 +227,7 @@ Press ↑/↓ to navigate command history
     if (terminalRef.current) {
       terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [commandHistory.length]);
+  }, [commandHistory]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleMouseDown = (e) => {
     if (isMaximized) return;
